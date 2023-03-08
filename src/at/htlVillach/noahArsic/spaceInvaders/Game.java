@@ -7,6 +7,7 @@ public class Game extends Canvas implements Runnable {
 
     public static final int WIDTH = 1000, HEIGHT = (WIDTH / 16) * 9;
     private Thread thread;
+    private Thread thread2;
     private boolean running = false;
     private boolean playerShotInFrame = false;
     private final Handler handler;
@@ -33,13 +34,16 @@ public class Game extends Canvas implements Runnable {
 
     public synchronized void start() {
         thread = new Thread(this);
+        thread2 = new Thread(new AlienMover(this.handler));
         thread.start();
+        thread2.start();
         running = true;
     }
 
     public synchronized void stop() {
         try {
             thread.join();
+            thread2.join();
             running = false;
         } catch (Exception e) {
             e.printStackTrace();

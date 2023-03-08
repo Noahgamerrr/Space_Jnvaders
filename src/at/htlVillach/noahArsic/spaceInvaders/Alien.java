@@ -26,12 +26,11 @@ public abstract class Alien extends GameObject {
 
     @Override
     public void tick() {
-        makeMove();
         shotAlien();
         chooseShootingAlien();
     }
 
-    private void makeMove() {
+    public void makeMove() {
         GameObject lastAlien = lastAlienOfHandler();
         if (System.nanoTime() > lastTime + timeBetweenMovement) {
             lastTime = System.nanoTime();
